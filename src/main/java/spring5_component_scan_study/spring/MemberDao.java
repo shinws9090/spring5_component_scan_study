@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
+@Component //설정파일에 스캔 될 클래스로 지정함
 public class MemberDao {
 	private static long nextId = 0;
 	private Map<String, Member> map = new HashMap<String, Member>();

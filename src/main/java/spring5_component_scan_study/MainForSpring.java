@@ -5,7 +5,7 @@ import java.util.Scanner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import spring5_component_scan_study.config.AppConfImport;
+import spring5_component_scan_study.config.AppCtx;
 import spring5_component_scan_study.exception.DuplicateMemberException;
 import spring5_component_scan_study.exception.MemberNotFoundException;
 import spring5_component_scan_study.exception.WrongIdPasswordException;
@@ -59,14 +59,14 @@ public class MainForSpring {
 
 
 
-	private static ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfImport.class);
+	private static ApplicationContext ctx = new AnnotationConfigApplicationContext(AppCtx.class);
 	
 	private static void processNewCommand(String[] arg) {
 		if(arg.length !=5) {
 			printHelp();
 			return;
 		}
-		MemberRegisterService regSvc = ctx.getBean("getMemberRegisterService",MemberRegisterService.class);
+		MemberRegisterService regSvc = ctx.getBean(MemberRegisterService.class);
 		RegisterRequst req = new RegisterRequst();
 		req.setEmail(arg[1]);
 		req.setName(arg[2]);
@@ -90,7 +90,7 @@ public class MainForSpring {
 			printHelp();
 			return;
 		}
-		ChangePasswordService changePwdSvc = ctx.getBean("getChangePasswordService",ChangePasswordService.class);
+		ChangePasswordService changePwdSvc = ctx.getBean(ChangePasswordService.class);
 		try {
 			changePwdSvc.changePassword(arg[1], arg[2], arg[3]);
 			System.out.println("암호를 변경했습니다.\n");
@@ -103,7 +103,7 @@ public class MainForSpring {
 	}
 	
 	private static void processListCommand() {
-		SelectService selSvc =ctx.getBean("getSelectService",SelectService.class);
+		SelectService selSvc =ctx.getBean(SelectService.class);
 		selSvc.selectAll();
 //		Map<String, Member> map = selSvc.selectAll();
 //		for(Entry<String, Member> m : map.entrySet()) {
@@ -115,7 +115,7 @@ public class MainForSpring {
 			printHelp();
 			return;
 		}
-		MemberInfoPrint inSvc =ctx.getBean("getMemberInfoPrint",MemberInfoPrint.class);
+		MemberInfoPrint inSvc =ctx.getBean(MemberInfoPrint.class);
 		inSvc.printMemberInfo(arg[1]);
 	}
 
